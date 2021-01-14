@@ -1,3 +1,4 @@
+const { TsconfigPathsPlugin } = require('tsconfig-paths-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = [
@@ -17,6 +18,10 @@ module.exports = [
     output: {
       path: `${__dirname}/dist`,
       filename: 'electron.js',
+    },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
     },
   },
   {
