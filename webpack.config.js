@@ -20,7 +20,7 @@ module.exports = [
       filename: 'electron.js',
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.jsx'],
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
       plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
     },
   },
@@ -36,11 +36,23 @@ module.exports = [
           include: /src/,
           use: [{ loader: 'ts-loader' }],
         },
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            { loader: 'css-loader', options: { importLoaders: 1 } },
+            'postcss-loader',
+          ],
+        },
       ],
     },
     output: {
       path: `${__dirname}/dist`,
       filename: 'react.js',
+    },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
+      plugins: [new TsconfigPathsPlugin({ configFile: './tsconfig.json' })],
     },
     plugins: [
       new HtmlWebpackPlugin({
